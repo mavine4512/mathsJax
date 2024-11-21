@@ -33,58 +33,24 @@ function MathJax(props) {
             html.indexOf('\[') === -1)) {
             return html;
         } else {
-            // return `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-            //     <script type="text/x-mathjax-config">
-            //         MathJax.Hub.Config(${options});
-            //         MathJax.Hub.Queue(function() {
-            //             var height = document.documentElement.scrollHeight;
-            //             window.postMessage(String(height));
-            //             document.getElementById("formula").style.visibility = "visible";
-            //         });
-            //     </script>
-            //     <script >
-            //       setTimeout(function(){ document.getElementById("formula").style.visibility = "visible"; }, 5000);
-            //    </script>
-            //     <script src="https://mathjax.mwalimuplus.com/MathJax/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-            //     <div id="formula" style="visibility:hidden; font-size:${fontSize ? fontSize : '12px' }; padding-bottom:25px;">
-            //         ${html}
-		    //         </div>
-            //     `;
-            return `
-                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-                        <script type="text/x-mathjax-config">
-                            MathJax.Hub.Config({
-                                tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
-                                CommonHTML: { scale: 100 }, // Adjust scaling for better rendering
-                                showProcessingMessages: false,
-                                messageStyle: "none",
-                                "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
-                                SVG: { linebreaks: { automatic: true } }
-                            });
-                            MathJax.Hub.Queue(function() {
-                                // Ensure height is communicated correctly for rendering
-                                var height = document.documentElement.scrollHeight;
-                                window.postMessage(String(height));
-                                document.getElementById("formula").style.visibility = "visible";
-                            });
-                        </script>
-                        <script>
-                            // Fallback for delayed rendering
-                            setTimeout(function() {
-                                var formulaElement = document.getElementById("formula");
-                                if (formulaElement && formulaElement.style.visibility === "hidden") {
-                                    formulaElement.style.visibility = "visible";
-                                }
-                            }, 5000);
-                        </script>
-                        <div id="formula" 
-                            style="visibility: hidden; 
-                                    font-size: ${fontSize ? fontSize : '14px'}; 
-                                    padding-bottom: 25px; 
-                                    color: ${textColor || 'black'};">
-                            ${html}
-                        </div>
-                        `
+            return `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+                <script type="text/x-mathjax-config">
+                    MathJax.Hub.Config(${options});
+                    MathJax.Hub.Queue(function() {
+                        var height = document.documentElement.scrollHeight;
+                        window.postMessage(String(height));
+                        document.getElementById("formula").style.visibility = "visible";
+                    });
+                </script>
+                <script >
+                  setTimeout(function(){ document.getElementById("formula").style.visibility = "visible"; }, 5000);
+               </script>
+                <script src="https://mathjax.mwalimuplus.com/MathJax/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+                <div id="formula" style="visibility:hidden; font-size:${fontSize ? fontSize : '12px' }; padding-bottom:25px;">
+                    ${html}
+		</div>
+                `;
+            
         }
     }
 
